@@ -11,3 +11,15 @@ Resources:
         BlockPublicPolicy: True
         IgnorePublicAcls: True
         RestrictPublicBuckets: True
+  
+  AthenaQueryBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 'jkt-athena-query-results'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+
+

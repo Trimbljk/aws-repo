@@ -1,7 +1,7 @@
 .PHONY: deploy
 
 REGION="us-east-1"
-STACKNAME="sam-code-bucket"
+STACKNAME="jkt-stack-operating-buckets"
 AWS_PROFILE=$(shell echo $(AWS_LP))
 
 deploy: template.yaml 
