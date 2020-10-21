@@ -1,0 +1,39 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  OutputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 'jkt-usda-api-crop-data'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+  
+  CropDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: "crop-data" 
+  
+  Crawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Name: "crop-data-crawler"
+      SchemaChangePolicy:
+        UpdateBehavior: UPDATE_IN_DATABASE
+        DeleteBehavior: DELETE_FROM_DATABASE
+      TablePrefix: usda_
+      DatabaseName: !Ref CropDatabase 
+      Targets:
+        S3Targets:
+          - Path: !Sub
+            - 's3://${Bucket}/crop-data'
+            - { Bucket: !Ref OutputBucket }
+      Schedule:
+        ScheduleExpression: "cron(0 0 ? * MON *)"
+      Role: AWSglueServiceRole
