@@ -18,7 +18,7 @@ Resources:
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "crop-data" 
+        Name: "crop_data" 
   
   Crawler:
     Type: AWS::Glue::Crawler
