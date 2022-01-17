@@ -24,7 +24,7 @@ Resources:
       SchemaChangePolicy:
         UpdateBehavior: UPDATE_IN_DATABASE
         DeleteBehavior: DELETE_FROM_DATABASE
-      TablePrefix: usda_
+      TablePrefix: sda_
       DatabaseName:
         Ref: CropDatabase
       Targets:
